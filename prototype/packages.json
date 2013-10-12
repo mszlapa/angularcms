@@ -1,0 +1,15 @@
+{
+  "name": "app-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "app/start",
+    "test": "grunt test"
+  },
+  "dependencies": {
+  	"connect": "~2.9.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+  }
+}

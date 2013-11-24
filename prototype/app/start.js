@@ -1,3 +1,6 @@
+//this starts the web server
+// whic serves content from 'web directory'
+
 var connect = require('connect')
   , http = require('http');
 
@@ -9,7 +12,7 @@ var app = connect()
   .use(connect.cookieParser())
   .use(connect.session({ secret: 'my secret here' }))
   .use(function(req, res){
-    res.end('Hello from Connect!\n');
+    res.end('Hello from Connect!\n');  //default response
   });
 
 http.createServer(app).listen(3000);

@@ -7,7 +7,7 @@ app.config(function ($routeProvider) {
         .when('/page/:pageName',
             {
                 controller: 'PageController',
-                templateUrl: '/content/partials/placeholder.html'
+                templateUrl: '/content/partials/bootstrapPage.html'  // change to inline template ?
             })
 
         .otherwise({ redirectTo: '/page/home' });
@@ -15,53 +15,40 @@ app.config(function ($routeProvider) {
 
 
 app.controller('PageController',function ($scope, $routeParams, $http) {
-    $scope.pageName = $routeParams.pageName;
     $scope.objectName = $routeParams.pageName;
-
-
-    $scope.objectData = {};
-
-//    todo this has timing issue, lets pretend the data is already there
-    $scope.objectData = {
-        "id": 1,
-        "type": "page",
-        "template": "<div > This template for page with title <i>{{cmsData.title}}<i></div>",
-        "cmsData": {
-            "title": "Hi this is a templated page"
-        }
-
-    }
-//    $scope.fetchContent = function(url) {
-//        $http.get(url).then(function(result){
-//            $scope.objectData = result.data;
-//            console.log('Fetched '+ $scope.objectData);
-//        });
-//    }
-//
-//    $scope.fetchContent('content/instance/page/home.json');
 });
 
 
+
+// renders an instance of cms object based on the template and dat a
 app.directive('cmsObject', function ($compile) {
 
-    var linker = function(scope, element, attrs) {
 
-        // todo use isolated scope instead
-        var cmsData = scope.$parent.objectData.cmsData;
-        var template = scope.$parent.objectData.template;
+    // todo #1 read object type e.g. page  and id e.g. home from attributes of the directive
+    // todo #2 refactor cms access to cmsService
+    // todo #3 check/improve performance of cmsService if need be pre-caching data and templates
 
-        scope.cmsData = cmsData;
-        element.html(template);
-
-        $compile(element.contents())(scope);
-    }
+    var controller = function ($scope, $http) {
+        //define function with fetches definition of the piece of cms content from backend
+        $scope.fetchContent = function (url) {
+            $http.get(url).then(function (result) {
+                // we expose cmsData from object definition
+                $scope.cmsData = result.data.cmsData;
+                console.log('Fetched data for ' + result.data.type + '#'+ result.data.id);
+            });
+        }
+    };
 
     return {
         restrict: "E",
         replace: true,
-        link: linker,
+        templateUrl: '/content/type/page/template.html',            //todo construct dynamically
         scope: {
             content:'='
+        },
+        controller: controller,
+        link: function(scope, iElement, iAttrs, ctrl) {
+            scope.fetchContent('content/instance/page/home.json');  //todo construct dynamically
         }
     };
 });

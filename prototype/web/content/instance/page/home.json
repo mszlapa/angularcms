@@ -1,9 +1,4 @@
 {
-    "id": 1,
-    "type": "page",
-    "template": "<div > This template for page with title {{cmsData.title}}</div>",
-    "cmsData": {
-        "title": "Hi this is a templated page"
-    }
-
+   "title": "Title from cms content",
+    "widgets" : ["redWdgt","blueWdgt"]
 }

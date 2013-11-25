@@ -1,8 +1,11 @@
 
 <div>
-    Page template
     <p>This renders dynamically using following Cms data <pre>{{cmsData}}</pre></p>
     <br>
-    <div > This template for page with title <i>{{cmsData.title}}</i></div>
+    <h2 > This template for page with title <i>{{cmsData.title}}</i></h2>
+
+    <div  ng-repeat="widget in cmsData.widgets">
+          <cms-object cms-type="widget" cms-id="{{widget}}" />
+    </div>
 </div>
 

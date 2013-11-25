@@ -3,4 +3,5 @@ browser localhost:3000
 
 
 STATUS
-Work in progress, it is not using widget definitions yet.
+Renders dynamic page based on url,
+page template is dynamically populated with widgets based on cms definition

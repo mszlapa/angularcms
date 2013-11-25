@@ -53,7 +53,7 @@ cmsApp.directive('cmsObject', function () {
         },
         controller: controller,
         link: function(scope, iElement, iAttrs, ctrl) {
-            scope.fetchContent('content/instance/'+scope.cmsType+'/'+scope.cmsId+'.json');  //todo construct dynamically
+            scope.fetchContent('content/instance/'+scope.cmsType+'/'+scope.cmsId+'.json');
         }
     };
 });
